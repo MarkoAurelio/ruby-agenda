@@ -3,7 +3,7 @@ module Api
     before_action :set_contact, only: [:show, :destroy]
 
     def index
-      contacts = current_user.contacts
+      contacts = ContactService.find_contacts(current_user)
       render json: contacts
     end
 
@@ -12,23 +12,31 @@ module Api
     end
 
     def create
-      contact = current_user.contacts.new(contact_params)
-      if contact.save
+      contact = ContactService.create_contact(current_user, contact_params)
+      if contact
         render json: contact, status: :created
       else
         render json: { errors: contact.errors }, status: :unprocessable_entity
       end
     end
 
+    def update
+      if ContactService.update_contact(current_user, @contact, contact_params)
+        render json: @contact
+      else
+        render json: { errors: @contact.errors }, status: :unprocessable_entity
+      end
+    end
+
     def destroy
-      @contact.destroy
+      ContactService.delete_contact(current_user, @contact)
       head :no_content
     end
 
     private
 
     def set_contact
-      @contact = current_user.contacts.find(params[:id])
+      @contact = ContactService.find_contact(current_user, params[:id])
     end
 
     def contact_params

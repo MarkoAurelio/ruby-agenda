@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
   namespace :api do
-    resources :contacts, only: [:index, :show, :create, :destroy]
+    resources :contacts, only: [:index, :show, :create, :update, :destroy]
     resources :users, only: [:create, :destroy]
-    post 'login', to: 'authentication#login'
-    post 'logout', to: 'authentication#logout'
+    resources :authentication, only: [] do
+      collection do
+        post 'login'
+        post 'logout'
+      end
+    end
   end
 end
