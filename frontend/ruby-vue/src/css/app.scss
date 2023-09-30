@@ -1,0 +1,12 @@
+// app global css in SCSS form
+.q-input {
+  .q-field {
+    &__marginal {
+      height: 48px;
+    }
+
+    &__control {
+      height: 48px;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: marko
+  password:
+  host: localhost
+  pool: 5
+
+development:
+  <<: *default
+  database: ruby_db
+
+test:
+  <<: *default
+  database: ruby_db
+
+production:
+  <<: *default
+  database: ruby_db # Substitua pelo nome do banco de dados de produção, se aplicável
+  username: marko     # Substitua pelo nome de usuário de produção, se aplicável
+  password:  # Substitua pela senha de produção, se aplicável
+
+
+
+
