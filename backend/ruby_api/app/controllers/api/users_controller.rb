@@ -1,5 +1,7 @@
 module Api
   class UsersController < ApiController
+    skip_before_action :authenticate, only: [:create]
+
     def create
       @user = User.new(user_params)
 
@@ -11,7 +13,7 @@ module Api
     end
 
     def destroy
-      @user = User.find(params[:id])
+      @user = User.find(current_user[:id])
       if @user.destroy
         render json: { message: 'User deleted successfully' }
       else

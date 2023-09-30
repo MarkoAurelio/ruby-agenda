@@ -1,6 +1,6 @@
 module Api
   class ContactsController < ApiController
-    before_action :set_contact, only: [:show, :destroy]
+    before_action :set_contact, only: [:show, :update, :destroy]
 
     def index
       contacts = ContactService.find_contacts(current_user)
@@ -13,7 +13,7 @@ module Api
 
     def create
       contact = ContactService.create_contact(current_user, contact_params)
-      if contact
+      if contact.save!
         render json: contact, status: :created
       else
         render json: { errors: contact.errors }, status: :unprocessable_entity
@@ -42,5 +42,6 @@ module Api
     def contact_params
       params.require(:contact).permit(:name, :cpf, :phone, :address, :cep, :latitude, :longitude)
     end
+
   end
 end

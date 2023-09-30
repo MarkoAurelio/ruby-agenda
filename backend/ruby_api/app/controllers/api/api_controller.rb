@@ -20,5 +20,9 @@ module Api
     rescue StandardError => e
       render json: { message: I18n.t('errors.messages.unauthorized') }, status: :unauthorized
     end
+
+    def current_user
+      @user
+    end
   end
 end
