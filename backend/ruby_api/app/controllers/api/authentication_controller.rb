@@ -1,10 +1,11 @@
 module Api
-  class AuthenticationController < ApplicationController
-    # skip_before_action :authenticate, only: [:login]
-    def login
-      @user = User.find_by(email: login_params[:user][:email])
+  class AuthenticationController < ApiController
+    skip_before_action :authenticate, only: [:create]
 
-      if @user&.authenticate(login_params[:user][:password])
+    def create
+      @user = User.find_by(email: login_params[:email])
+
+      if @user&.authenticate(login_params[:password])
         token = JsonWebToken.encode(user_id: @user.id)
         render json: {
           name: @user.name,
