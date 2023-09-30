@@ -20,7 +20,7 @@ module.exports = configure((/* ctx */) => ({
     // exclude: [],
     // rawOptions: {},
     warnings: true,
-    errors: true,
+    errors: false,
   },
 
   // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -29,19 +29,10 @@ module.exports = configure((/* ctx */) => ({
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli-vite/boot-files
-  boot: [
-    'i18n',
-    'axios',
-    'mirage',
-    'fontawesome-pro',
-    'notify',
-  ],
+  boot: ["i18n", "axios", "mirage", "fontawesome-pro", "notify"],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-  css: [
-    'app.scss',
-    'variables.classes.scss',
-  ],
+  css: ["app.scss", "variables.classes.scss"],
 
   // https://github.com/quasarframework/quasar/tree/dev/extras
   extras: [
@@ -53,18 +44,18 @@ module.exports = configure((/* ctx */) => ({
     // 'line-awesome',
     // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-    'roboto-font', // optional, you are not bound to it
-    'material-icons', // optional, you are not bound to it
+    "roboto-font", // optional, you are not bound to it
+    "material-icons", // optional, you are not bound to it
   ],
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
   build: {
     target: {
-      browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
-      node: 'node16',
+      browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
+      node: "node16",
     },
 
-    vueRouterMode: 'history', // available values: 'hash', 'history'
+    vueRouterMode: "history", // available values: 'hash', 'history'
     // vueRouterBase,
     // vueDevtools,
     // vueOptionsAPI: false,
@@ -80,30 +71,33 @@ module.exports = configure((/* ctx */) => ({
     // polyfillModulePreload: true,
     // distDir
 
-    env: require('dotenv').config().parsed,
+    env: require("dotenv").config().parsed,
 
     // extendViteConf (viteConf) {},
     // viteVuePluginOptions: {},
 
     vitePlugins: [
-      ['@intlify/vite-plugin-vue-i18n', {
-        // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-        // compositionOnly: false,
+      [
+        "@intlify/vite-plugin-vue-i18n",
+        {
+          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+          // compositionOnly: false,
 
-        // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
-        // you need to set `runtimeOnly: false`
-        // runtimeOnly: false,
+          // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
+          // you need to set `runtimeOnly: false`
+          // runtimeOnly: false,
 
-        // you need to set i18n resource including paths !
-        include: path.resolve(__dirname, './src/i18n/**'),
-      }],
+          // you need to set i18n resource including paths !
+          include: path.resolve(__dirname, "./src/i18n/**"),
+        },
+      ],
     ],
   },
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
   devServer: {
     server: {
-      type: 'http',
+      type: "http",
     },
     port: 8080,
     open: true, // opens browser window automatically
@@ -125,9 +119,9 @@ module.exports = configure((/* ctx */) => ({
     // components: [],
     // directives: [],
 
-    iconSet: 'fontawesome-v6-pro',
+    iconSet: "fontawesome-v6-pro",
     // Quasar plugins
-    plugins: ['Loading', 'Notify'],
+    plugins: ["Loading", "Notify"],
   },
 
   // animations: 'all', // --- includes all animations
@@ -165,16 +159,16 @@ module.exports = configure((/* ctx */) => ({
     maxAge: 1000 * 60 * 60 * 24 * 30,
 
     middlewares: [
-      'render', // keep this as last one
+      "render", // keep this as last one
     ],
   },
 
   // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
   pwa: {
-    workboxMode: 'generateSW', // or 'injectManifest'
+    workboxMode: "generateSW", // or 'injectManifest'
     injectPwaMetaTags: true,
-    swFilename: 'sw.js',
-    manifestFilename: 'manifest.json',
+    swFilename: "sw.js",
+    manifestFilename: "manifest.json",
     useCredentialsForManifestTag: false,
     // useFilenameHashes: true,
     // extendGenerateSWOptions (cfg) {}
@@ -201,17 +195,15 @@ module.exports = configure((/* ctx */) => ({
     // specify the debugging port to use for the Electron app when running in development mode
     inspectPort: 5858,
 
-    bundler: 'packager', // 'packager' or 'builder'
+    bundler: "packager", // 'packager' or 'builder'
 
     packager: {
       // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
       // OS X / Mac App Store
       // appBundleId: '',
       // appCategoryType: '',
       // osxSign: '',
       // protocol: 'myapp://path',
-
       // Windows only
       // win32metadata: { ... }
     },
@@ -219,15 +211,13 @@ module.exports = configure((/* ctx */) => ({
     builder: {
       // https://www.electron.build/configuration/configuration
 
-      appId: 'ruby-vue',
+      appId: "ruby-vue",
     },
   },
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
   bex: {
-    contentScripts: [
-      'my-content-script',
-    ],
+    contentScripts: ["my-content-script"],
 
     // extendBexScriptsConf (esbuildConf) {}
     // extendBexManifestJson (json) {}

@@ -15,9 +15,9 @@ export const useContactStore = defineStore('contact', {
     async create(newContact) {
       try {
         Loading.show();
-        const { contact } = (await ContactService.create(newContact)).data;
+        const { data } = await ContactService.create({ contact: newContact });
 
-        this.contacts.push({ email: contact.email, name: contact.name });
+        this.contacts.push(data);
       } catch (e) {
         const error = e.response?.status === 401 ? 'Já existe uma conta associada a este e-mail, faça login para continuar' : e;
         notifyError(error);

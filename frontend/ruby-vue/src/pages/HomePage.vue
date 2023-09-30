@@ -79,7 +79,7 @@
         <q-separator />
         <q-card-actions align="between">
           <q-btn flat label="Excluir" color="red" @click="confirmDeleteOpen = true" />
-          <q-btn flat label="Salvar" color="primary" v-close-popup />
+          <q-btn flat label="Salvar" color="primary" @click="createContact" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -150,6 +150,9 @@ export default {
     },
     handleCreateDialog() {
       this.dialogOpen = !this.dialogOpen;
+    },
+    async createContact() {
+      await this.contactStore.create(this.contact);
     },
   },
 };
