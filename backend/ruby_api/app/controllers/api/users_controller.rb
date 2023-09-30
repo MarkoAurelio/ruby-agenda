@@ -10,7 +10,7 @@ module Api
       end
     end
 
-    def destroy_update
+    def destroy
       @user = User.find(params[:id])
       if @user.destroy
         render json: { message: 'User deleted successfully' }
