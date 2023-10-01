@@ -11,10 +11,6 @@ api.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token) config.headers.Authorization = `Bearer ${token}`;
 
-    // if (config.params) {
-    //   config.params = snakeCaseKeys(config.params);
-    // }
-
     return config;
   },
   (error) => Promise.reject(error),
@@ -22,10 +18,6 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  // if (response.data) {
-  //   response.data = camelCaseKeys(response.data);
-  // }
-
   (error) => {
     if (error?.response?.status === 401) {
       const authStore = useAuthStore();
@@ -33,7 +25,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default boot(({ app }) => {

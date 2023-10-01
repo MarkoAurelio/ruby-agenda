@@ -1,18 +1,18 @@
-class ContactService
+class UserService
   class << self
     def find_contacts(user)
       user.contacts
     end
 
-    def create_contact(user, contact_params)
-      user.contacts.new(contact_params)
+    def create_user(user_params)
+      @user = User.create!(user_params)
     end
 
     def find_contact(user, contact_id)
       user.contacts.find_by(id: contact_id)
     end
 
-    def delete_contact(user, contact)
+    def delete_user(user, contact)
       contact.destroy
     end
 

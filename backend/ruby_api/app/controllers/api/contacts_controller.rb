@@ -1,5 +1,6 @@
 module Api
   class ContactsController < ApiController
+    include HTTParty
     before_action :set_contact, only: [:show, :update, :destroy]
 
     def index
@@ -33,6 +34,11 @@ module Api
       head :no_content
     end
 
+    def search_address
+      address_data = fetch_address_from_via_cep(address_params[:cep])
+      render json: address_data
+    end
+
     private
 
     def set_contact
@@ -40,8 +46,26 @@ module Api
     end
 
     def contact_params
-      params.require(:contact).permit(:name, :cpf, :phone, :address, :cep, :latitude, :longitude)
+      params.require(:contact).permit(:name, :cpf, :phone, :street, :number, :city, :state, :complement, :cep)
     end
 
+    def address_params
+      params.permit(:cep)
+    end
+
+    def fetch_address_from_via_cep(cep)
+      begin
+        response = HTTParty.get("https://viacep.com.br/ws/#{cep}/json/")
+
+        if response.success?
+          address_data = JSON.parse(response.body)
+          return address_data
+        else
+          return { error: 'CEP não encontrado' }
+        end
+      rescue StandardError => e
+        return { error: 'Erro ao buscar CEP' }
+      end
+    end
   end
 end

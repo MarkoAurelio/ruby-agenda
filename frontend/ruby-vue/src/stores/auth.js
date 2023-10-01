@@ -50,8 +50,8 @@ export const useAuthStore = defineStore("auth", {
         await this.router.push({ name: RouteNames.HOME });
       } catch (e) {
         const error =
-          e.response?.status === 401
-            ? "Já existe uma conta associada a este e-mail, faça login para continuar"
+          e.response?.status === 422
+            ? "Este e-mail já está em uso. Faça o login ou utilize outro"
             : e;
         notifyError(error);
       } finally {
