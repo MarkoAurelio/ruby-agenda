@@ -2,7 +2,7 @@
   <q-card
     v-ripple
     class="full-width q-mb-xs non-selectable"
-    @click="editContact"
+    @click="openEdit"
   >
     <q-card-section
       class="card-content row q-pa-none full-height no-wrap"
@@ -41,6 +41,9 @@ export default {
   computed: {
   },
   methods: {
+    openEdit() {
+      this.$emit('open', this.id)
+    }
   },
 };
 </script>

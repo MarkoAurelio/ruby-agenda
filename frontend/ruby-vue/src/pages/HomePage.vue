@@ -42,6 +42,7 @@
                 :id="item.id"
                 :name="item.name"
                 :cpf="item.cpf"
+                @open="showContact"
               />
             </q-virtual-scroll>
           </q-card-section>
@@ -72,14 +73,14 @@
               v-model="contact.cpf"
               :title="$t('EMAIL')"
               :placeholder="$t('EMAIL_EXAMPLE')"
-              type="number"
+              type="text"
             />
           </form>
         </q-card-section>
         <q-separator />
         <q-card-actions align="between">
-          <q-btn flat label="Excluir" color="red" @click="confirmDeleteOpen = true" />
-          <q-btn flat label="Salvar" color="primary" @click="createContact" v-close-popup />
+          <q-btn v-if="contact.id" flat label="Excluir" color="red" @click="confirmDeleteOpen = true" />
+          <q-btn flat label="Salvar" color="primary" @click="createUpdate" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -105,7 +106,7 @@
             flat
             color="red"
             v-close-popup
-            @click="handleCreateDialog"
+            @click="deleteContact"
           />
         </q-card-actions>
       </q-card>
@@ -128,18 +129,12 @@ export default {
       searchQuery: '',
       dialogOpen: false,
       confirmDeleteOpen: false,
-      contact: {
-        name: '',
-        cpf: '',
-        cep: null,
-        street: '',
-        city: '',
-      },
     };
   },
   computed: {
     ...mapStores(useContactStore),
     contacts() { return this.contactStore.filteredContacts(this.searchQuery); },
+    contact() {return this.contactStore.contact}
   },
   async mounted() {
     await this.fetchContacts();
@@ -151,8 +146,16 @@ export default {
     handleCreateDialog() {
       this.dialogOpen = !this.dialogOpen;
     },
-    async createContact() {
-      await this.contactStore.create(this.contact);
+    async createUpdate() {
+      await this.contactStore.createUpdate();
+    },
+    async showContact(contactID) {
+      await this.contactStore.fetchContact(contactID);
+      this.handleCreateDialog()
+    },
+    async deleteContact() {
+      await this.contactStore.delete();
+      if(!this.contact.id) this.handleCreateDialog()
     },
   },
 };
