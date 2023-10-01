@@ -10,3 +10,18 @@
     }
   }
 }
+.q-select {
+  .q-field {
+    &__control {
+      min-height: 48px;
+    }
+
+    &__native {
+      min-height: 48px;
+    }
+
+    &__marginal {
+      height: 48px;
+    }
+  }
+}

@@ -16,7 +16,6 @@
               </div>
             </q-card-section>
           </q-card>
-
           <q-card class="contact-list col">
             <q-card-section class="row justify-between">
               <div class="text-h6 text-center">
@@ -55,88 +54,11 @@
         </q-card>
       </div>
     </div>
-    <q-dialog v-model="dialogOpen">
-      <q-card style="width: 700px; max-width: 80vw;">
-        <q-card-section>
-          <div class="text-h6">Novo Contato</div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section style="max-height: 60vh" class="scroll">
-          <form class="content">
-            <div class="row justify-between">
-              <div class="col full-width">
-                <text-field
-                  v-model="contact.name"
-                  class="q-pb-md"
-                  :title="$t('FULL_NAME')"
-                  :placeholder="$t('INSERT_NAME')"
-                  type="text"
-                />
-              </div>
-              <div class="col full-width">
-                <text-field
-                  v-model="contact.cpf"
-                  :title="$t('EMAIL')"
-                  :placeholder="$t('EMAIL_EXAMPLE')"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div class="row justify-between">
-              <div class="col full-width">
-                <text-field
-                  v-model="contact.name"
-                  class="q-pb-md"
-                  :title="$t('FULL_NAME')"
-                  :placeholder="$t('INSERT_NAME')"
-                  type="text"
-                />
-              </div>
-              <div class="col full-width">
-                <text-field
-                  v-model="contact.cpf"
-                  :title="$t('EMAIL')"
-                  :placeholder="$t('EMAIL_EXAMPLE')"
-                  type="text"
-                />
-              </div>
-            </div>
-          </form>
-        </q-card-section>
-        <q-separator />
-        <q-card-actions align="between">
-          <q-btn v-if="contact.id" flat label="Excluir" color="red" @click="confirmDeleteOpen = true" />
-          <q-btn flat label="Salvar" color="primary" @click="createUpdate" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <q-dialog
-      v-model="confirmDeleteOpen"
-      persistent
-      transition-show="scale"
-      transition-hide="scale"
-    >
-      <q-card class="bg-red text-white" style="width: 300px">
-        <q-card-section>
-          <div class="text-h6">Confirmar exclusão</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          Tem certeza que deseja excluir? Esta ação não pode ser desfeita.
-        </q-card-section>
-
-        <q-card-actions align="right" class="bg-white ">
-          <q-btn flat label="Cancelar" v-close-popup color="primary"/>
-          <q-btn
-            label="Confirmar"
-            flat
-            color="red"
-            v-close-popup
-            @click="deleteContact"
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+    <contact-form
+      :is-open="dialogOpen"
+      @close="handleCreateDialog"
+      @submit="createUpdate"
+    />
   </q-page>
 </template>
 
@@ -145,22 +67,21 @@ import { mapStores } from 'pinia';
 import SearchField from 'components/inputs/SearchField.vue';
 import TextField from 'components/inputs/TextField.vue';
 import ContactCard from 'components/ContactCard.vue';
+import ContactForm from 'components/ContactForm.vue';
 import { useContactStore } from '../stores/contact';
 
 export default {
   name: 'HomePage',
-  components: { SearchField, ContactCard, TextField },
+  components: { SearchField, ContactCard, TextField, ContactForm },
   data() {
     return {
       searchQuery: '',
       dialogOpen: false,
-      confirmDeleteOpen: false,
     };
   },
   computed: {
     ...mapStores(useContactStore),
     contacts() { return this.contactStore.filteredContacts(this.searchQuery); },
-    contact() {return this.contactStore.contact}
   },
   async mounted() {
     await this.fetchContacts();
@@ -171,6 +92,7 @@ export default {
     },
     handleCreateDialog() {
       this.dialogOpen = !this.dialogOpen;
+      if(!this.dialogOpen) this.contactStore.clearContact()
     },
     async createUpdate() {
       await this.contactStore.createUpdate();
@@ -178,10 +100,6 @@ export default {
     async showContact(contactID) {
       await this.contactStore.fetchContact(contactID);
       this.handleCreateDialog()
-    },
-    async deleteContact() {
-      await this.contactStore.delete();
-      if(!this.contact.id) this.handleCreateDialog()
     },
   },
 };

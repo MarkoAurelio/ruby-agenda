@@ -46,7 +46,7 @@ module Api
     end
 
     def contact_params
-      params.require(:contact).permit(:name, :cpf, :phone, :street, :number, :city, :state, :complement, :cep)
+      params.require(:contact).permit(:name, :cpf, :phone, :street, :neighborhood, :number, :city, :state, :complement, :cep)
     end
 
     def address_params

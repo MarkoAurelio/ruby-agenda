@@ -14,4 +14,7 @@ export default {
   delete(id) {
     return api.delete(`/contacts/${id}`);
   },
+  fetchAddress(cep) {
+    return api.get(`/contacts/search_address/${cep}`);
+  },
 };
