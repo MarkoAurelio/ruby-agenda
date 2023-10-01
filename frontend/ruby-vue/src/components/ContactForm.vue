@@ -2,7 +2,7 @@
   <q-dialog v-model="open">
     <q-card style="width: 700px; max-width: 80vw;">
       <q-card-section class="row justify-between align-center">
-        <div class="text-h6">Novo Contato</div>
+        <div class="text-h6">{{ contact.id ? 'Editar' : 'Novo' }} Contato</div>
         <q-icon
           name="fa-light fa-xmark"
           class="cursor-pointer"

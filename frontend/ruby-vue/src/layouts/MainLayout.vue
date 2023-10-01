@@ -15,3 +15,9 @@ export default {
   components: { AppHeader },
 };
 </script>
+
+<style>
+  .q-page-container {
+    background-color: #ECF1FA;
+  }
+</style>

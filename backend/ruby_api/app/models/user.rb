@@ -10,7 +10,7 @@
 #  updated_at      :datetime         not null
 #
 class User < ApplicationRecord
-  has_many :contacts
+  has_many :contacts, dependent: :destroy
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
   validates :email, presence: true, uniqueness: true

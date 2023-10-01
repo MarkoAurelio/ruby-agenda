@@ -19,11 +19,12 @@ module Api
 
     def destroy
       @user = User.find(current_user[:id])
-
-      if @user.destroy
-        render json: { message: 'User deleted successfully' }
+      if @user.authenticate(params[:password])
+        Contact.where(user_id: @user.id).destroy_all # Excluir todos os contatos do usuário
+        @user.destroy
+        render json: { message: 'Conta excluída!' }, status: :ok
       else
-        render json: { error: 'Failed to delete user' }, status: :unprocessable_entity
+        render json: { error: 'Senha incorreta' }, status: :unprocessable_entity
       end
     end
 

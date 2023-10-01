@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { Loading } from 'quasar';
 import ContactService from '../services/ContactService';
-import { filterItems, notifyError } from '../utils/helpers';
+import { filterItems, notifyError, validateCPF } from "../utils/helpers";
 import { StateOptions } from "../utils/consts";
 
 export const useContactStore = defineStore("contact", {
@@ -11,8 +11,7 @@ export const useContactStore = defineStore("contact", {
   }),
   persist: true,
   getters: {
-    filteredContacts: (state) => (term) =>
-      filterItems(state.contacts, term, "name"),
+    filteredContacts: (state) => (term) => filterItems(state.contacts, term),
     isMissingInfo: (state) => {
       const { name, cpf, phone, street, number, neighborhood, cep, city } =
         state.contact;
@@ -33,13 +32,17 @@ export const useContactStore = defineStore("contact", {
     async createUpdate() {
       try {
         Loading.show();
+        if (!validateCPF(this.contact.cpf)) {
+          notifyError("CPF Inválido");
+          return false;
+        }
         const { data } = await ContactService.createUpdate({
           contact: {
             ...this.contact,
             state: this.contact?.state?.value,
           },
         });
-        if (!this.contact.id) this.contacts.push(data);
+        this.fetchContacts();
         return true;
       } catch (e) {
         const error =
@@ -54,12 +57,19 @@ export const useContactStore = defineStore("contact", {
     },
     async fetchContacts() {
       try {
+        Loading.show();
         this.$reset();
         const { data } = await ContactService.getContacts();
-        this.contacts = data;
+        this.contacts = data.sort((a, b) => {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
       } catch (e) {
         notifyError(e);
         throw e;
+      } finally {
+        Loading.hide();
       }
     },
     async fetchContact(contactID) {
@@ -75,16 +85,20 @@ export const useContactStore = defineStore("contact", {
     },
     async delete() {
       try {
+        Loading.show();
         const { data } = await ContactService.delete(this.contact.id);
         this.fetchContacts();
         this.clearContact();
       } catch (e) {
         notifyError(e);
         throw e;
+      } finally {
+        Loading.hide();
       }
     },
     async searchAddress() {
       try {
+        Loading.show();
         if (this.contact.cep) {
           const { data } = await ContactService.fetchAddress(this.contact.cep);
           if (data.error || data.erro)
@@ -104,6 +118,8 @@ export const useContactStore = defineStore("contact", {
       } catch (e) {
         notifyError(e);
         throw e;
+      } finally {
+        Loading.hide();
       }
     },
     clearContact() {

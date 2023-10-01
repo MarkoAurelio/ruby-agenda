@@ -42,10 +42,9 @@ export default {
     ...mapStores(useAuthStore),
     headerInfo() {
       switch (this.$route.name) {
-        case RouteNames.PROFILE:
-          return { title: this.$t('PROFILE') };
+        case RouteNames.HOME:
         default:
-          return { title: this.$t('DASHBOARD') };
+          return { title: 'Contatos' };
       }
     },
   },
@@ -69,7 +68,7 @@ export default {
     height: 56px;
   }
   .header {
-    background-color: white;
+    background-color: #d1dff8;
     color: $primary;
     display: flex;
     justify-items: center;

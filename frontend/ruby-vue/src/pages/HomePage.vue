@@ -1,15 +1,15 @@
 <template>
   <q-page class="flex-start fit">
-    <div class="fit col">
+    <div class="fit col q-pt-lg">
       <div class="fit row">
         <div class="col q-mx-md">
           <q-card class="q-mb-lg ">
             <q-card-section class="q-pb-none flex">
               <div class="row justify-between items-center full-width">
-                <div class="col q-pr-lg">
+                <div class="col">
                   <search-field
                     v-model="searchQuery"
-                    :placeholder="$t('SEARCH_CONTACT')"
+                    :placeholder="'Pesquisar por Nome ou CPF'"
                   />
                 </div>
               </div>

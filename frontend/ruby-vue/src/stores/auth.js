@@ -72,6 +72,20 @@ export const useAuthStore = defineStore("auth", {
         Loading.hide();
       }
     },
+    async delete(password) {
+      try {
+        Loading.show();
+        const { data } = await AuthService.delete({ password });
+        if (data) {
+          notifyError(data.message);
+          this.invalidateSession();
+        }
+      } catch (e) {
+        notifyError(e);
+      } finally {
+        Loading.hide();
+      }
+    },
     async invalidateSession() {
       localStorage.removeItem("token");
       await this.router.push({ name: RouteNames.LOGIN });

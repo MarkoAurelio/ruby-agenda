@@ -7,7 +7,10 @@ export default {
   create(account) {
     return api.post("/users", account);
   },
+  delete(password) {
+    return api.patch("/users/destroy", password);
+  },
   logout() {
-    return api.delete('/auth/logout');
+    return api.delete("/auth/logout");
   },
 };
