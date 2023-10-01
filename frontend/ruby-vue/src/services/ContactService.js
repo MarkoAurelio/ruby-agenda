@@ -1,9 +1,10 @@
 import { api } from 'boot/axios';
 
 export default {
-  createUpdate(contact) {
-    if (contact.id) return api.put(`/contacts/${contact.id}`, contact);
-    else return api.post("/contacts", contact);
+  createUpdate(payload) {
+    if (payload.contact.id)
+      return api.put(`/contacts/${payload.contact.id}`, payload);
+    else return api.post("/contacts", payload);
   },
   getContacts() {
     return api.get("/contacts");

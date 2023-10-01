@@ -21,6 +21,8 @@
 #
 class Contact < ApplicationRecord
   belongs_to :user
+  validates :name, :cpf, :phone, :street, :number, :neighborhood, :cep, :city, presence: true
+  validates :cpf, uniqueness: true
 
   geocoded_by :full_address
   after_validation :geocode

@@ -13,6 +13,21 @@ export const useContactStore = defineStore("contact", {
   getters: {
     filteredContacts: (state) => (term) =>
       filterItems(state.contacts, term, "name"),
+    isMissingInfo: (state) => {
+      const { name, cpf, phone, street, number, neighborhood, cep, city } =
+        state.contact;
+      return !(
+        !!name &&
+        !!cpf &&
+        !!phone &&
+        !!street &&
+        !!number &&
+        !!neighborhood &&
+        !!cep &&
+        !!city &&
+        !!state.contact.state?.value
+      );
+    },
   },
   actions: {
     async createUpdate() {
@@ -24,14 +39,15 @@ export const useContactStore = defineStore("contact", {
             state: this.contact?.state?.value,
           },
         });
-
-        this.contacts.push(data);
+        if (!this.contact.id) this.contacts.push(data);
+        return true;
       } catch (e) {
         const error =
           e.response?.status === 401
             ? "Já existe uma conta associada a este e-mail, faça login para continuar"
             : e;
         notifyError(error);
+        return false;
       } finally {
         Loading.hide();
       }
@@ -61,7 +77,7 @@ export const useContactStore = defineStore("contact", {
       try {
         const { data } = await ContactService.delete(this.contact.id);
         this.fetchContacts();
-        clearContact();
+        this.clearContact();
       } catch (e) {
         notifyError(e);
         throw e;
@@ -71,15 +87,16 @@ export const useContactStore = defineStore("contact", {
       try {
         if (this.contact.cep) {
           const { data } = await ContactService.fetchAddress(this.contact.cep);
-          if (data.error) notifyError(data.error);
+          if (data.error || data.erro)
+            notifyError(data.error ?? "CEP Inválido");
           else {
             this.contact = {
               ...this.contact,
               city: data.localidade,
               neighborhood: data.bairro,
               state: StateOptions.find((s) => s.value === data.uf),
-              street: data.logradouro.startsWith("Rua ")
-                ? data.logradouro.slice(4)
+              street: data.logradouro?.startsWith("Rua ")
+                ? data.logradouro?.slice(4)
                 : data.logradouro,
             };
           }

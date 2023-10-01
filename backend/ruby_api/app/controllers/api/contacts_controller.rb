@@ -14,7 +14,7 @@ module Api
 
     def create
       contact = ContactService.create_contact(current_user, contact_params)
-      if contact.save!
+      if contact.save
         render json: contact, status: :created
       else
         render json: { errors: contact.errors }, status: :unprocessable_entity

@@ -1,8 +1,15 @@
 <template>
   <q-dialog v-model="open">
     <q-card style="width: 700px; max-width: 80vw;">
-      <q-card-section>
+      <q-card-section class="row justify-between align-center">
         <div class="text-h6">Novo Contato</div>
+        <q-icon
+          name="fa-light fa-xmark"
+          class="cursor-pointer"
+          size="20px"
+          @click="emitClose"
+          color="black"
+        />
       </q-card-section>
       <q-separator />
       <q-card-section style="max-height: 60vh" class="scroll">
@@ -105,7 +112,7 @@
       <q-separator />
       <q-card-actions :align="contact.id? 'between' : 'right'">
         <q-btn v-if="contact.id" flat label="Excluir" color="red" @click="confirmDeleteOpen = true" />
-        <q-btn flat label="Salvar" color="primary" @click="emitSubmit" />
+        <q-btn flat label="Salvar" color="primary" @click="emitSubmit" :disable="isMissingInfo"/>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -147,6 +154,7 @@ export default {
   computed: {
     ...mapStores(useContactStore),
     contact() {return this.contactStore.contact},
+    isMissingInfo() { return this.contactStore.isMissingInfo},
     open: {
       get() {
         return this.isOpen;

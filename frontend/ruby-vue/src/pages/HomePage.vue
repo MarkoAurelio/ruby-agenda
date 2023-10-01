@@ -2,9 +2,8 @@
   <q-page class="flex-start fit">
     <div class="fit col">
       <div class="fit row">
-        <div class="col q-mx-xl">
-
-          <q-card class="q-my-lg ">
+        <div class="col q-mx-md">
+          <q-card class="q-mb-lg ">
             <q-card-section class="q-pb-none flex">
               <div class="row justify-between items-center full-width">
                 <div class="col q-pr-lg">
@@ -95,7 +94,8 @@ export default {
       if(!this.dialogOpen) this.contactStore.clearContact()
     },
     async createUpdate() {
-      await this.contactStore.createUpdate();
+      const success = await this.contactStore.createUpdate();
+      if(success) this.handleCreateDialog();
     },
     async showContact(contactID) {
       await this.contactStore.fetchContact(contactID);
