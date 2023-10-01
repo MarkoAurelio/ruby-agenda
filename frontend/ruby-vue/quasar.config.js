@@ -29,7 +29,7 @@ module.exports = configure((/* ctx */) => ({
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli-vite/boot-files
-  boot: ["i18n", "axios", "mirage", "fontawesome-pro", "notify"],
+  boot: ["i18n", "axios", "mirage", "notify"],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
   css: ["app.scss", "variables.classes.scss"],
@@ -38,14 +38,13 @@ module.exports = configure((/* ctx */) => ({
   extras: [
     // 'ionicons-v4',
     // 'mdi-v5',
-    // 'fontawesome-v6',
+    "fontawesome-v6",
     // 'eva-icons',
     // 'themify',
     // 'line-awesome',
     // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
     "roboto-font", // optional, you are not bound to it
-    "material-icons", // optional, you are not bound to it
   ],
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
@@ -119,7 +118,6 @@ module.exports = configure((/* ctx */) => ({
     // components: [],
     // directives: [],
 
-    iconSet: "fontawesome-v6-pro",
     // Quasar plugins
     plugins: ["Loading", "Notify"],
   },

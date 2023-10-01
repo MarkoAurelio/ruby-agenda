@@ -17,7 +17,7 @@
     <template #prepend>
       <q-icon
         class="q-mx-xs"
-        name="fa-light fa-magnifying-glass"
+        name="fa-solid fa-magnifying-glass"
         size="16px"
       />
     </template>
@@ -26,7 +26,7 @@
       #append
     >
       <q-icon
-        name="fa-light fa-xmark"
+        name="fa-solid fa-xmark"
         size="16px"
         class="cursor-pointer"
         @click="clearSearch"

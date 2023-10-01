@@ -4,7 +4,7 @@
       <q-card-section class="row justify-between align-center">
         <div class="text-h6">{{ contact.id ? 'Editar' : 'Novo' }} Contato</div>
         <q-icon
-          name="fa-light fa-xmark"
+          name="fa-solid fa-xmark"
           class="cursor-pointer"
           size="20px"
           @click="emitClose"

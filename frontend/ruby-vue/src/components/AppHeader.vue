@@ -8,7 +8,7 @@
       >
         <q-icon
           size="18px"
-          name="fa-light fa-bars"
+          name="fa-solid fa-bars"
         />
       </q-btn>
 
@@ -85,6 +85,6 @@ export default {
     padding-left: 18px;
   }
   .q-icon {
-    color: grey;
+    color: $primary;
   }
 </style>

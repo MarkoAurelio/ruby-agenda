@@ -13,7 +13,7 @@
         class="flex justify-end non-selectable q-pa-none close-section"
       >
         <q-icon
-          name="fa-light fa-xmark"
+          name="fa-solid fa-xmark"
           class="cursor-pointer"
           size="20px"
           @click="emitClose"

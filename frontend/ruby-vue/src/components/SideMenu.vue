@@ -90,8 +90,8 @@ export default {
   data() {
     return {
       menuItems: [
-        { title: 'Contatos', icon: 'fa-light fa-chart-line', page: RouteNames.HOME },
-        { title: 'Sair', icon: 'fa-light fa-arrow-left-from-line', action: this.logout },
+        { title: 'Contatos', icon: 'fa-regular fa-address-book', page: RouteNames.HOME },
+        { title: 'Sair', icon: 'fa-solid fa-arrow-left', action: this.logout },
       ],
       confirmDeleteOpen: false,
       password: ''

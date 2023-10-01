@@ -17,7 +17,7 @@
     <template v-if="searchable && modelValue" #append>
       <q-icon
         class="q-mx-xs cursor-pointer"
-        name="fa-light fa-magnifying-glass"
+        name="fa-solid fa-magnifying-glass"
         size="16px"
         @click="emitSearch"
       />

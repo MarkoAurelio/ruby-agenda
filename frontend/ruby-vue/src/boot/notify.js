@@ -11,9 +11,9 @@ Notify.setDefaults({
   progress: true,
 });
 
-Notify.registerType('error', {
+Notify.registerType("error", {
   timeout: 3000,
-  icon: 'fa-light fa-circle-exclamation',
-  iconColor: 'white',
-  color: 'red',
+  icon: "fa-solid fa-circle-exclamation",
+  iconColor: "white",
+  color: "red",
 });

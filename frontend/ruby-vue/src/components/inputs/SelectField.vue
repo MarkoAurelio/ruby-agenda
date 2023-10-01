@@ -11,8 +11,8 @@
     :model-value="modelValue"
     :options="filteredOptions"
     bg-color="white"
-    dropdown-icon="fa-light fa-chevron-down"
-    clear-icon="fa-light fa-xmark"
+    dropdown-icon="fa-solid fa-chevron-down"
+    clear-icon="fa-solid fa-xmark"
     :use-input="autocomplete"
     outlined
     input-debounce="0"

@@ -6,7 +6,7 @@
     {{ title }}
     <q-icon
       v-if="tooltip"
-      name="fa-light fa-circle-info"
+      name="fa-solid fa-circle-info"
       class="cursor-pointer q-pl-xs"
       size="16px"
       :color="!isPasswordValid ? 'red': 'primary-dark-grey'"
@@ -27,7 +27,7 @@
     <template #append>
       <q-icon
         v-if="modelValue"
-        :name="showPassword ? 'fa-light fa-eye-slash' : 'fa-light fa-eye'"
+        :name="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
         class="cursor-pointer"
         size="16px"
         @click="showPassword = !showPassword"
