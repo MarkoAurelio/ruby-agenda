@@ -2,7 +2,7 @@
   "name": "ruby-vue",
   "version": "0.0.1",
   "description": "A Ruby on Rails plus Vue Example",
-  "productName": "Ruby Vue Example",
+  "productName": "Sistema Agenda",
   "author": "Marko <madias.andrade@gmail.com>",
   "private": true,
   "scripts": {
