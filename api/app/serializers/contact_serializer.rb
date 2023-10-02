@@ -9,5 +9,7 @@ class ContactSerializer < ActiveModel::Serializer
              :city,
              :state,
              :complement,
-             :cep
+             :cep,
+             :latitude,
+             :longitude
 end
