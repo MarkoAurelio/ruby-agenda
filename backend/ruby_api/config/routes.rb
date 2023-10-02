@@ -11,10 +11,6 @@ Rails.application.routes.draw do
         patch 'destroy', to: 'users#destroy'
       end
     end
-    resources :authentication, only: [:create] do
-      collection do
-        delete 'logout'
-      end
-    end
+    resources :authentication, only: [:create]
   end
 end

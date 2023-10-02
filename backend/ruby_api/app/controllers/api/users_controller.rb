@@ -3,28 +3,22 @@ module Api
     skip_before_action :authenticate, only: [:create]
 
     def create
-      @user = User.new(user_params)
+      result = UserService.create_user(user_params)
 
-      if @user.save
-        token = JsonWebToken.encode(user_id: @user.id)
-        render json: {
-          name: @user.name,
-          email: @user.email,
-          token: token,
-        }, status: :created
+      if result.key?(:user)
+        render_user_with_token(result[:user], result[:token])
       else
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: result[:errors] }, status: :unprocessable_entity
       end
     end
 
     def destroy
-      @user = User.find(current_user[:id])
-      if @user.authenticate(params[:password])
-        Contact.where(user_id: @user.id).destroy_all # Excluir todos os contatos do usuário
-        @user.destroy
-        render json: { message: 'Conta excluída!' }, status: :ok
+      result = UserService.destroy_user(current_user, params[:password])
+
+      if result.key?(:message)
+        render json: result, status: :ok
       else
-        render json: { error: 'Senha incorreta' }, status: :unprocessable_entity
+        render json: result, status: :unprocessable_entity
       end
     end
 
@@ -32,6 +26,14 @@ module Api
 
     def user_params
       params.require(:user).permit(:name, :email, :password)
+    end
+
+    def render_user_with_token(user, token)
+      render json: {
+        name: user.name,
+        email: user.email,
+        token: token,
+      }, status: :created
     end
   end
 end

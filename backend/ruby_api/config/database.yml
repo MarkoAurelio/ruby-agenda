@@ -18,11 +18,11 @@ development:
 
 test:
   <<: *default
-  database: ruby_db
+  database: ruby_db_test
 
 production:
   <<: *default
-  database: ruby_db # Substitua pelo nome do banco de dados de produção, se aplicável
+  database: ruby_db_prod # Substitua pelo nome do banco de dados de produção, se aplicável
   username: marko     # Substitua pelo nome de usuário de produção, se aplicável
   password:  # Substitua pela senha de produção, se aplicável
 

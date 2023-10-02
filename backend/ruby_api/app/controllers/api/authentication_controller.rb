@@ -3,22 +3,17 @@ module Api
     skip_before_action :authenticate, only: [:create]
 
     def create
-      @user = User.find_by(email: login_params[:email])
+      result = AuthenticationService.authenticate_user(login_params[:email], login_params[:password])
 
-      if @user&.authenticate(login_params[:password])
-        token = JsonWebToken.encode(user_id: @user.id)
+      if result
         render json: {
-          name: @user.name,
-          email: @user.email,
-          token: token,
+          name: result[:user].name,
+          email: result[:user].email,
+          token: result[:token],
         }, status: :ok
       else
-        render json: { error: 'Invalid credentials' }, status: :unauthorized
+        render json: { error: 'Credenciais inválidas' }, status: :unauthorized
       end
-    end
-
-    def logout
-      render json: { message: 'Logged out successfully' }
     end
 
     private

@@ -4,20 +4,20 @@ class ContactService
       user.contacts
     end
 
-    def create_contact(user, contact_params)
-      user.contacts.new(contact_params)
+    def find_contact(user, id)
+      user.contacts.find_by(id: id)
     end
 
-    def find_contact(user, contact_id)
-      user.contacts.find_by(id: contact_id)
+    def create_contact(user, params)
+      user.contacts.build(params)
     end
 
-    def delete_contact(user, contact)
-      contact.destroy
+    def update_contact(contact, params)
+      contact.update(params)
     end
 
-    def update_contact(user, contact, contact_params)
-      contact.update(contact_params)
+    def delete_contact(contact)
+      contact.destroy if contact
     end
   end
 end

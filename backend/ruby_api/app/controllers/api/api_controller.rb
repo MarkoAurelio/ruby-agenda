@@ -16,9 +16,7 @@ module Api
 
       true
     rescue ActiveRecord::RecordNotFound, JWT::DecodeError, JWT::VerificationError, CustomException::BadRequest::UnauthorizedUser => e
-      render json: { message: e.message }, status: :unauthorized
-    rescue StandardError => e
-      render json: { message: I18n.t('errors.messages.unauthorized') }, status: :unauthorized
+      render json: { message: message }, status: :unauthorized
     end
 
     def current_user

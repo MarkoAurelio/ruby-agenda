@@ -5,32 +5,32 @@ module Api
 
     def index
       contacts = ContactService.find_contacts(current_user)
-      render json: contacts
+      render json: contacts, each_serializer: ContactSerializer
     end
 
     def show
-      render json: @contact
+      render json: @contact, serializer: ContactSerializer
     end
 
     def create
       contact = ContactService.create_contact(current_user, contact_params)
       if contact.save
-        render json: contact, status: :created
+        render json: contact, status: :created, serializer: ContactSerializer
       else
         render json: { errors: contact.errors }, status: :unprocessable_entity
       end
     end
 
     def update
-      if ContactService.update_contact(current_user, @contact, contact_params)
-        render json: @contact
+      if ContactService.update_contact(@contact, contact_params)
+        render json: @contact, serializer: ContactSerializer
       else
         render json: { errors: @contact.errors }, status: :unprocessable_entity
       end
     end
 
     def destroy
-      ContactService.delete_contact(current_user, @contact)
+      ContactService.delete_contact(@contact)
       head :no_content
     end
 
@@ -58,13 +58,12 @@ module Api
         response = HTTParty.get("https://viacep.com.br/ws/#{cep}/json/")
 
         if response.success?
-          address_data = JSON.parse(response.body)
-          return address_data
+          JSON.parse(response.body)
         else
-          return { error: 'CEP não encontrado' }
+          { error: 'CEP não encontrado' }
         end
       rescue StandardError => e
-        return { error: 'Erro ao buscar CEP' }
+        { error: 'Erro ao buscar CEP' }
       end
     end
   end

@@ -1,23 +1,25 @@
 class UserService
   class << self
-    def find_contacts(user)
-      user.contacts
+    def create_user(params)
+      user = User.new(params)
+      if user.save
+        {
+          user: user,
+          token: JsonWebToken.encode(user_id: user.id),
+        }
+      else
+        { errors: user.errors.full_messages }
+      end
     end
 
-    def create_user(user_params)
-      @user = User.create!(user_params)
-    end
-
-    def find_contact(user, contact_id)
-      user.contacts.find_by(id: contact_id)
-    end
-
-    def delete_user(user, contact)
-      contact.destroy
-    end
-
-    def update_contact(user, contact, contact_params)
-      contact.update(contact_params)
+    def destroy_user(user, password)
+      if user.authenticate(password)
+        Contact.where(user_id: user.id).destroy_all
+        user.destroy
+        { message: 'Conta excluída!' }
+      else
+        { error: 'Senha incorreta' }
+      end
     end
   end
 end
