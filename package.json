@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-frontend": "cd frontend/ruby-vue && quasar dev",
-    "start-backend": "cd backend/ruby_api && rails server",
+    "start-frontend": "cd front && quasar dev",
+    "start-backend": "cd api && rails server",
     "dev": "npm-run-all --parallel start-frontend start-backend"
   },
   "keywords": [],
