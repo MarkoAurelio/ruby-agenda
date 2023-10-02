@@ -10,6 +10,11 @@ Projeto completo modelo de um sistema de `Agenda de Contatos`, integrando `API`,
 * Geolocalização de endereços via `Geocoder`, para definir `Latitude` e `Longitude` de um contato.
 * Sistema de criptografia de senhas e tokens utilizando `JWT` e `BCrypt`.
 
+
+A API oferece endpoints para criar, listar, atualizar e excluir contatos pessoais.
+
+Você pode acessar a documentação completa dos endpoints em [Collection Postman](https://documenter.getpostman.com/view/30167854/2s9YJbzNNU).
+
 ### Tecnologias
 
 #### Frontend
@@ -72,5 +77,5 @@ Inserido alguns testes na API para garantir o bom funcionamento da plataforma. P
 
 ```bash
 cd ruby-agenda/api
-bundle exec spec
+bundle exec rspec
 ```

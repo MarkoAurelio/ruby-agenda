@@ -14,12 +14,4 @@ test:
   <<: *default
   database: ruby_db_test
 
-production:
-  <<: *default
-  database: ruby_db_prod
-  username: marko
-  password:
-
-
-
 
