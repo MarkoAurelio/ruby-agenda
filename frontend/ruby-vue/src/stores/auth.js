@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia';
-import { Loading } from 'quasar';
-import { i18n } from 'boot/i18n.js';
-import AuthService from '../services/AuthService';
-import { notifyError } from '../utils/helpers';
-import { RouteNames } from '../utils/consts';
+import { Loading } from "quasar";
+import AuthService from "../services/AuthService";
+import { notifyError } from "../utils/helpers";
+import { RouteNames } from "../utils/consts";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -14,9 +13,6 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated: false,
   }),
   persist: true,
-  getters: {
-    loggedIn: (state) => () => state.isAuthenticated,
-  },
   actions: {
     async login(credentials) {
       try {
@@ -31,7 +27,7 @@ export const useAuthStore = defineStore("auth", {
         await this.router.push({ name: RouteNames.HOME });
       } catch (e) {
         const error =
-          e.response?.status === 401 ? i18n.global.t("LOGIN_ERROR_MESSAGE") : e;
+          e.response?.status === 401 ? "Email e/ou senha inválidos" : e;
         notifyError(error);
       } finally {
         Loading.hide();
@@ -61,7 +57,6 @@ export const useAuthStore = defineStore("auth", {
     async logout() {
       try {
         Loading.show();
-        // await AuthService.logout();
 
         localStorage.removeItem("token");
         await this.router.push({ name: RouteNames.LOGIN });

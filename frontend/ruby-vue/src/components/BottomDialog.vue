@@ -2,14 +2,12 @@
   <q-dialog
     v-model="open"
     position="bottom"
-    :persistent="!isSuccess"
     class="full-width q-px-none bottom-dialog"
   >
     <q-card
       class="full-width"
     >
       <q-card-section
-        v-touch-swipe.mouse.down="isSuccess ? emitClose : undefined"
         class="flex justify-end non-selectable q-pa-none close-section"
       >
         <q-icon
@@ -21,21 +19,7 @@
         />
       </q-card-section>
       <q-card-section class="q-pa-none">
-        <slot>
-          <div
-            class="column items-center no-wrap q-pt-none"
-          >
-            <div class="q-pb-md">
-              <q-img
-                width="80px"
-                :src="statusIcon"
-              />
-            </div>
-            <div class="q-py-md text-weight-bold text-h6 text-center">
-              {{ statusMessage }}
-            </div>
-          </div>
-        </slot>
+        <slot />
       </q-card-section>
       <q-card-actions
         v-if="!btnHidden"
@@ -43,10 +27,9 @@
       >
         <q-btn
           class="action"
-          :color="btnColor"
-          :label="isSuccess ? $t('OK') : $t('CONFIRM')"
+          :color="'primary'"
+          :label="'Confirmar'"
           unelevated
-          :outline="!!actionStatus"
           :disable="disableBtn"
           @click="emitSubmit"
         />
@@ -56,8 +39,6 @@
 </template>
 
 <script>
-import { ResponseStatus } from '../utils/consts';
-
 export default {
   name: 'BottomDialog',
   props: {
@@ -65,47 +46,13 @@ export default {
       type: Boolean,
       required: true,
     },
-    negativeAction: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    actionStatus: {
-      type: String,
-      required: false,
-      default: '',
-    },
-    statusMessage: {
-      type: String,
-      required: false,
-      default: '',
-    },
     disableBtn: {
       type: Boolean,
       required: false,
     },
-    btnHidden: {
-      type: Boolean,
-      default: false,
-    },
   },
   emits: ['close', 'submit'],
   computed: {
-    btnColor() {
-      const actionColor = this.negativeAction ? 'red' : 'primary';
-      return this.actionStatus ? 'secondary' : actionColor;
-    },
-    statusIcon() {
-      switch (this.actionStatus) {
-        case ResponseStatus.WARNING:
-          return 'images/warning.svg';
-        case ResponseStatus.ERROR:
-          return 'images/error.svg';
-        case ResponseStatus.SUCCESS:
-        default:
-          return 'images/success.svg';
-      }
-    },
     open: {
       get() {
         return this.isOpen;
@@ -113,9 +60,6 @@ export default {
       set() {
         this.emitClose();
       },
-    },
-    isSuccess() {
-      return this.actionStatus === ResponseStatus.SUCCESS;
     },
   },
   methods: {

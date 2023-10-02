@@ -42,14 +42,10 @@ export const useContactStore = defineStore("contact", {
             state: this.contact?.state?.value,
           },
         });
-        this.fetchContacts();
+        if (data) this.fetchContacts();
         return true;
       } catch (e) {
-        const error =
-          e.response?.status === 401
-            ? "Já existe uma conta associada a este e-mail, faça login para continuar"
-            : e;
-        notifyError(error);
+        notifyError(e);
         return false;
       } finally {
         Loading.hide();
@@ -74,6 +70,7 @@ export const useContactStore = defineStore("contact", {
     },
     async fetchContact(contactID) {
       try {
+        Loading.show();
         this.contact = {};
         const { data } = await ContactService.getContact(contactID);
         this.contact = data;
@@ -81,6 +78,8 @@ export const useContactStore = defineStore("contact", {
       } catch (e) {
         notifyError(e);
         throw e;
+      } finally {
+        Loading.hide();
       }
     },
     async delete() {

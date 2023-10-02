@@ -4,20 +4,15 @@
       <q-page class="flex justify-center">
         <div class="fit container">
           <q-card>
-            <q-card-section>
-              <div class="column items-center">
-                <q-img
-                  width="120px"
-                  src="~assets/icon-logo.svg"
-                />
-              </div>
+            <q-card-section class="text-center">
+              <h5>Sistema Agenda</h5>
             </q-card-section>
             <q-card-section>
               <form class="content">
                 <text-field
                   v-model="auth.email"
-                  :title="$t('EMAIL')"
-                  :placeholder="$t('EMAIL_EXAMPLE')"
+                  :title="'E-mail'"
+                  :placeholder="'email@exemplo.com'"
                   type="email"
                   autocomplete="username"
                   :rules="[validEmail]"
@@ -25,8 +20,8 @@
                 <password-field
                   v-model="auth.password"
                   class="q-pt-xs"
-                  :title="$t('PASSWORD')"
-                  :placeholder="$t('TYPE_PASSWORD')"
+                  :title="'Senha'"
+                  :placeholder="'******'"
                   :autocomplete="'current-password'"
                 />
                 <div
@@ -35,7 +30,7 @@
                   <q-btn
                     class="login-btn"
                     color="primary"
-                    :label="$t('ENTER')"
+                    :label="'Entrar'"
                     unelevated
                     :disable="loginDisabled"
                     @click="doLogin"
@@ -44,7 +39,7 @@
                     class="create-btn non-selectable cursor-pointer"
                     @click="handleCreateDialog"
                   >
-                    {{ $t('CREATE_ACCOUNT') }}
+                    Criar uma Conta
                   </div>
                 </div>
               </form>
@@ -61,30 +56,29 @@
         <div>
           <div class="text-center">
             <div class="dialog-title">
-              {{ $t('CREATE_ACCOUNT') }}
+              Criar Conta
             </div>
           </div>
-          <form class="content">
+          <form class="full-width">
             <text-field
               v-model="account.name"
               class="q-pb-md"
-              :title="$t('FULL_NAME')"
-              :placeholder="$t('INSERT_NAME')"
+              :title="'Nome completo'"
+              :placeholder="'Seu nome'"
               type="text"
-              :autocomplete="'new-password'"
             />
             <text-field
               v-model="account.email"
-              :title="$t('EMAIL')"
-              :placeholder="$t('EMAIL_EXAMPLE')"
+              :title="'E-mail'"
+              :placeholder="'email@exemplo.com'"
               type="email"
               :rules="[validEmail]"
-              :autocomplete="'new-password'"
+              :autocomplete="'new-email'"
             />
             <password-field
               v-model="account.password"
-              :title="$t('PASSWORD')"
-              :placeholder="$t('TYPE_PASSWORD')"
+              :title="'Senha'"
+              :placeholder="'Min. 6 caracteres'"
               :autocomplete="'new-password'"
             />
           </form>
@@ -96,9 +90,8 @@
 
 <script>
 import { mapStores } from 'pinia';
-import PasswordField from 'components/inputs/PasswordField.vue';
-import TextField from 'components/inputs/TextField.vue';
-import BottomDialog from 'components/BottomDialog.vue';
+import { BottomDialog } from 'components';
+import { PasswordField, TextField, } from 'components/inputs';
 import { useAuthStore } from '../stores/auth';
 import Rules, { emailValidator } from '../utils/rules';
 
@@ -108,8 +101,8 @@ export default {
   data() {
     return {
       auth: {
-        email: 'marko@dev.com',
-        password: 'abc@123',
+        email: '',
+        password: '',
       },
       account: {
         name: '',
@@ -150,10 +143,6 @@ export default {
 <style lang="scss" scoped>
   .container {
     max-width: 500px;
-    padding-top: 60px;
-  }
-  .content {
-    width: 100%;
     padding-top: 60px;
   }
   .footer {

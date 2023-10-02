@@ -2,12 +2,11 @@ import { Notify } from 'quasar';
 
 Notify.setDefaults({
   timeout: 2500,
-  color: 'secondary',
-  position: 'bottom',
-  textColor: 'white',
-  classes: 'notify-default',
-  icon: '🚀',
-  iconColor: 'white',
+  color: "secondary",
+  position: "bottom",
+  textColor: "white",
+  classes: "notify-default",
+  iconColor: "white",
   progress: true,
 });
 

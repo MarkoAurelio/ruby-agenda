@@ -11,7 +11,6 @@
           name="fa-solid fa-bars"
         />
       </q-btn>
-
       <q-toolbar-title class="title text-capitalize">
         {{ headerInfo.title }}
       </q-toolbar-title>
@@ -55,13 +54,6 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  body.q-ios-padding .toolbar {
-    padding-top: env(safe-area-inset-top);
-    min-height: calc(env(safe-area-inset-top) + 56px);
-  }
-</style>
 
 <style lang="scss" scoped>
   .toolbar {

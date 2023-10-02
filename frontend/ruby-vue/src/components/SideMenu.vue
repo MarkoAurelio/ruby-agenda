@@ -34,52 +34,37 @@
       <q-btn flat label="Apagar Conta" color="red" @click="handleDeleteConfirmation" />
     </div>
   </q-drawer>
-  <q-dialog
-    v-model="confirmDeleteOpen"
-    persistent
-    transition-show="scale"
-    transition-hide="scale"
+  <delete-dialog
+    :is-open="confirmDeleteOpen"
+    :title="'Excluir conta!'"
+    :warn-message="'Tem certeza que deseja excluir? Esta ação não pode ser desfeita.'"
+    @submit="deleteAccount"
+    @close="confirmDeleteOpen = false"
   >
-    <q-card class="bg-red text-white" style="width: 300px">
-      <q-card-section>
-        <div class="text-h6">Excluir conta!</div>
-      </q-card-section>
-      <q-card-section class="q-py-none">
-        <p>Tem certeza que deseja excluir? Esta ação não pode ser desfeita.</p>
-      </q-card-section>
-      <q-card-section class="bg-white q-pt-md text-black">
-        <p>
-          Confirme digitando sua senha novamente.
-        </p>
-        <password-field
-          v-model="password"
-          class="q-pt-xs"
-          :placeholder="$t('TYPE_PASSWORD')"
-          :autocomplete="'current-password'"
-        />
-      </q-card-section>
-      <q-card-actions align="right" class="bg-white">
-        <q-btn flat label="Cancelar" v-close-popup color="primary"/>
-        <q-btn
-          label="Confirmar"
-          flat
-          color="red"
-          @click="deleteAccount"
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+    <q-card-section class="bg-white q-pt-md text-black">
+      <p>
+        Confirme digitando sua senha novamente.
+      </p>
+      <password-field
+        v-model="password"
+        class="q-pt-xs"
+        :placeholder="'Digite sua senha'"
+        :autocomplete="'current-password'"
+      />
+    </q-card-section>
+  </delete-dialog>
 </template>
 
 <script>
 import { mapStores } from 'pinia';
 import { RouteNames } from '../utils/consts';
 import { useAuthStore } from '../stores/auth';
-import PasswordField from 'components/inputs/PasswordField.vue';
+import { PasswordField } from 'components/inputs';
+import DeleteDialog from 'components/DeleteDialog.vue';
 
 export default {
   name: 'SideMenu',
-  components: { PasswordField },
+  components: { PasswordField, DeleteDialog },
   props: {
     isOpen: {
       type: Boolean,
@@ -139,9 +124,6 @@ export default {
   .drawer-icon-section {
     padding: 0;
     margin-right: 12px;
-  }
-  .q-icon {
-    color: $primary;
   }
   .drawer-active-item {
     background-color: #d1dff8;

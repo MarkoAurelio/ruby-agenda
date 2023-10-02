@@ -116,8 +116,10 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-  <delete-contact-dialog
+  <delete-dialog
     :is-open="confirmDeleteOpen"
+    :title="'Confirmar exclusão'"
+    :warn-message="'Tem certeza que deseja excluir? Esta ação não pode ser desfeita.'"
     @submit="deleteContact"
     @close="confirmDeleteOpen = false"
   />
@@ -129,12 +131,12 @@ import { useContactStore } from '../stores/contact';
 import TextField from 'components/inputs/TextField.vue';
 import SelectField from 'components/inputs/SelectField.vue';
 import SearchField from 'components/inputs/SearchField.vue';
-import DeleteContactDialog from 'components/DeleteContactDialog.vue';
+import { DeleteDialog } from 'components';
 import { StateOptions } from '../utils/consts';
 import { phoneMask, cepMask, cpfMask } from '../utils/masks';
 export default {
   name: 'ContactForm',
-  components: { TextField, SelectField, SearchField, DeleteContactDialog },
+  components: { TextField, SelectField, SearchField, DeleteDialog },
   props: {
     isOpen: {
       type: Boolean,

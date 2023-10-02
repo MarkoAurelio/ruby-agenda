@@ -1,15 +1,3 @@
 export default {
-  HOME: 'Home',
-  BUDGET: 'Presupuestos',
-  REVENUE: 'Ingresos',
-  PROFILE: 'Perfil',
-  LOGOUT: 'Salir',
-  EMAIL: 'E-mail',
-  PASSWORD: 'Contraseña',
-  EMAIL_EXAMPLE: 'email{\'@\'}ejemplo.com',
-  INSERT_VALID_EMAIL: 'Ingrese un e-mail válido',
-  TYPE_PASSWORD: 'Escriba su contraseña',
-  ENTER: 'Iniciar sesión',
-  FORGOT_YOUR_PASSWORD: '¿Olvidaste tu contraseña?',
-  CREATE_ACCOUNT: 'Crea una conta',
+  CONTACTS: "Contactos",
 };

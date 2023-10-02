@@ -4,14 +4,6 @@
     class="text-weight-medium row items-center"
   >
     {{ title }}
-    <q-icon
-      v-if="tooltip"
-      name="fa-solid fa-circle-info"
-      class="cursor-pointer q-pl-xs"
-      size="16px"
-      :color="!isPasswordValid ? 'red': 'primary-dark-grey'"
-      @click="handlePasswordDialog"
-    />
   </div>
   <q-input
     v-bind="$attrs"
@@ -51,10 +43,6 @@ export default {
       type: String,
       default: null,
     },
-    tooltip: {
-      type: Boolean,
-      default: false,
-    },
     autocomplete: {
       type: String,
       default: 'new-password',
@@ -91,8 +79,5 @@ export default {
     font-weight: 700;
     margin-bottom: 20px;
     padding-top: 10px;
-  }
-  .list > * {
-    padding-top: 4px;
   }
 </style>

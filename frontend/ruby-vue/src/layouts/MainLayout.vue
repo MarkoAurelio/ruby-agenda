@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AppHeader from 'components/AppHeader.vue';
+import { AppHeader } from 'components';
 
 export default {
   name: 'MainLayout',

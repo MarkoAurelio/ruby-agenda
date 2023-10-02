@@ -22,7 +22,7 @@
     <template #no-option>
       <q-item>
         <q-item-section class="text-primary-medium-grey">
-          {{ $t('NO_OPTIONS') }}
+          Nenhum resultado.
         </q-item-section>
       </q-item>
     </template>
