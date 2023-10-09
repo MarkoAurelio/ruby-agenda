@@ -44,6 +44,11 @@ rails db:create
 rails db:migrate
 ```
 
+Vamos alimentar o banco com alguns dados ficticios
+```bash
+rails db:seed
+```
+
 Entre no diretório do frontend e instale as dependências
 ```bash
 cd ruby-agenda/front
