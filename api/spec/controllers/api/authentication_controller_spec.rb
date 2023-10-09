@@ -1,16 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Api::AuthenticationController, type: :controller do
-  describe 'Seed DB' do
-    before(:all) do
-      Rails.application.load_seed
-    end
-  end
-
   describe 'POST #create' do
     context 'with valid credentials' do
-
       it 'returns a valid user data with a token' do
+        user = User.create(name: 'User Dev', email: 'user@dev.com', password: 'abc@123')
+
         post :create, params: { email: 'user@dev.com', password: 'abc@123' }
 
         expect(response).to have_http_status(:ok)
@@ -24,8 +19,8 @@ RSpec.describe Api::AuthenticationController, type: :controller do
     end
 
     context 'with invalid credentials' do
-      it 'returns an unauthorized error' do
-        post :create, params: { email: 'invalid@example.com', password: 'wrongpassword' }
+      it 'returns an error message' do
+        post :create, params: { email: 'invalid_email@example.com', password: 'invalid_password' }
 
         expect(response).to have_http_status(:unauthorized)
 

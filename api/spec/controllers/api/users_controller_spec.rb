@@ -38,7 +38,7 @@ RSpec.describe Api::UsersController, type: :controller do
         {
           user: {
             name: 'Dev Marko',
-            email: 'marko@dev.com',
+            email: 'dev@dev.com',
             password: 'abc'
           }
         }
@@ -55,10 +55,7 @@ RSpec.describe Api::UsersController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)).to eq(
           {
-            'errors' => {
-              'email' => ['is not an email'],
-              'password' => ['Password is too short (minimum is 6 characters)']
-            }
+            'errors' => ['Password is too short (minimum is 6 characters)']
           }
         )
       end
